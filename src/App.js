@@ -11,6 +11,8 @@ import Kebab from "./kebab.jpg";
 import KFC from "./kfc.jpeg";
 import Sandwich from "./sandwich.jpg";
 
+import Burgers from './Burgers.js'
+
 // Composant BurgerBlock
 function BurgerBlock({
     imagePath,
@@ -59,21 +61,14 @@ function App() {
         // Ajoutez d'autres restaurants ici...
     ]);
 
-    // useRef pour suivre l'état initial du montage du composant
-    const isInitialMount = useRef(true);
-
+    
     useEffect(() => {
-        if (isInitialMount.current) {
-            isInitialMount.current = false; // Après le premier montage, définir à false
-        } else {
-            // Mettre à jour seulement si le restaurant change d'état
-            restaurants.forEach((restaurant) => {
-                if (restaurant.isOpen) {
-                    console.log(`${restaurant.name} est maintenant ouvert.`);
-                    // Autres actions nécessaires quand un restaurant ouvre
-                }
-            });
-        }
+        restaurants.forEach((restaurant) => {
+            if (restaurant.isOpen) {
+                console.log(`${restaurant.name} est maintenant ouvert.`);
+                // Autres actions nécessaires quand un restaurant ouvre
+            }
+        });
     }, [restaurants]);
 
     const addToCart = (quantity) => {
@@ -96,60 +91,9 @@ function App() {
 
     return (
         <>
-            <Monheader />
             <div className='App'>
-                <header>
-                    <div className='container'>
-                        <div className='header'>
-                            <div className='headerlogo'>
-                                <img
-                                    className='logi'
-                                    src={Logo}
-                                    alt='Image du menu'
-                                />
-                            </div>
-                            <div className='header--address'>
-                                <input
-                                    type='text'
-                                    name=''
-                                    id=''
-                                    placeholder='*****'
-                                />
-                                <p>to</p>
-                                <input
-                                    type='text'
-                                    name=''
-                                    id=''
-                                    placeholder='******'
-                                />
-                            </div>
-                            <div className='header--buttons'>
-                                <div>
-                                    <a href='#'>Sign In</a>
-                                    <a href='#'>Register</a>
-                                </div>
-                                <div class='cart-icon'>
-                                    <div>
-                                        <iconify-icon
-                                            icon='ion:cart'
-                                            width='30'
-                                            height='30'></iconify-icon>
-                                    </div>
-                                    <div id='cart' class='bubble'>
-                                        {cart}
-                                    </div>
-                                </div>
-                                <div className='header--cart'>
-                                    <svg
-                                        viewBox='0 0 40 72'
-                                        fill='none'
-                                        xmlns='http://www.w3.org/2000/svg'></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-
+                <Monheader Logo={Logo} cart={cart} />
+                <Burgers />
                 <section className='shops'>
                     <div className='container'>
                         <div className='shops--title'>
